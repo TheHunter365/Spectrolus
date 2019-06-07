@@ -5,6 +5,10 @@ import com.google.gson.GsonBuilder;
 import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
 import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
+import net.thehunter365.spectrolus.servermanager.GameServerManager;
+import net.thehunter365.spectrolus.servermanager.commands.TemplateCommand;
+import net.thehunter365.spectrolus.servermanager.docker.DockerClientPool;
+import net.thehunter365.spectrolus.servermanager.docker.DockerRemote;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +24,9 @@ public class Spectrolus {
     private CommandManager commandManager;
     private AsyncCommandExecutor asyncCommandExecutor;
 
+    private DockerClientPool dockerClientPool;
+    private GameServerManager gameServerManager;
+
     public Spectrolus() {
         LOGGER = new Logger();
 
@@ -34,6 +41,21 @@ public class Spectrolus {
         this.asyncCommandExecutor = new AsyncCommandExecutor(this.commandManager);
 
         this.executorService.submit(this.asyncCommandExecutor);
+
+        this.dockerClientPool = new DockerClientPool();
+
+        this.dockerClientPool.addRemoteHost(new DockerRemote(true, "tcp://144.76.154.85:2375"));
+
+        this.dockerClientPool.checkHosts();
+        this.gameServerManager = new GameServerManager(this.dockerClientPool);
+
+        this.gameServerManager.buildTemplates();
+
+    }
+
+
+    private void registerCommands() {
+        this.commandManager.createCommand("template", new TemplateCommand(this.gameServerManager));
     }
 
     public static Logger getLogger() {
@@ -46,5 +68,13 @@ public class Spectrolus {
 
     public ExecutorService getExecutorService() {
         return executorService;
+    }
+
+    public GameServerManager getGameServerManager() {
+        return gameServerManager;
+    }
+
+    public DockerClientPool getDockerClientPool() {
+        return dockerClientPool;
     }
 }

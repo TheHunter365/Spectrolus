@@ -1,0 +1,25 @@
+Manifest-Version: 1.0
+Class-Path: netty-codec-http-4.1.31.Final.jar hk2-utils-2.5.0-b42.jar 
+ bcpkix-jdk15on-1.60.jar hk2-locator-2.5.0-b42.jar httpcore-4.4.10.jar
+  javax.annotation-api-1.2.jar slf4j-api-1.7.25.jar jackson-jaxrs-json
+ -provider-2.9.7.jar junixsocket-native-common-2.0.4.jar guava-19.0.ja
+ r netty-buffer-4.1.31.Final.jar httpclient-4.5.6.jar jersey-apache-co
+ nnector-2.27.jar jersey-hk2-2.27.jar javax.ws.rs-api-2.1.jar native-l
+ ib-loader-2.0.2.jar netty-transport-native-unix-common-4.1.31.Final.j
+ ar commons-pool2-2.4.3.jar netty-transport-native-kqueue-4.1.31.Final
+ -osx-x86_64.jar docker-java-3.1.1.jar netty-codec-socks-4.1.31.Final.
+ jar junixsocket-common-2.0.4.jar hk2-api-2.5.0-b42.jar jersey-common-
+ 2.27.jar netty-transport-4.1.31.Final.jar commons-lang-2.6.jar netty-
+ common-4.1.31.Final.jar javax.inject-2.5.0-b42.jar netty-codec-4.1.31
+ .Final.jar log4j-1.2.17.jar javassist-3.22.0-CR2.jar netty-transport-
+ native-epoll-4.1.31.Final-linux-x86_64.jar slf4j-api-1.7.22.jar jerse
+ y-client-2.27.jar commons-compress-1.18.jar jackson-annotations-2.9.0
+ .jar aopalliance-repackaged-2.5.0-b42.jar commons-codec-1.11.jar nett
+ y-resolver-4.1.31.Final.jar osgi-resource-locator-1.0.1.jar jcl-over-
+ slf4j-1.7.25.jar bcprov-jdk15on-1.60.jar gson-2.8.5.jar jackson-modul
+ e-jaxb-annotations-2.9.7.jar javax.inject-1.jar commons-io-2.6.jar ja
+ ckson-jaxrs-base-2.9.7.jar netty-handler-4.1.31.Final.jar netty-handl
+ er-proxy-4.1.31.Final.jar jackson-databind-2.9.7.jar jedis-3.0.1.jar 
+ jackson-core-2.9.7.jar
+Main-Class: net.thehunter365.spectrolus.Main
+

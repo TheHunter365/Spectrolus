@@ -1,12 +1,17 @@
 package net.thehunter365.spectrolus.servermanager.docker;
 
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.BuildResponseItem;
 import com.github.dockerjava.api.model.Info;
 import com.github.dockerjava.core.DockerClientBuilder;
+import com.github.dockerjava.core.command.BuildImageResultCallback;
 import net.thehunter365.spectrolus.Spectrolus;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class DockerClientPool {
 
@@ -42,11 +47,26 @@ public class DockerClientPool {
         this.dockerClientMap.forEach((host, client) -> {
             Info info = client.infoCmd().exec();
             if (info != null) {
-                Spectrolus.getLogger().warn("Docker: " + host.getHost() + " is DOWN !");
-            } else {
                 Spectrolus.getLogger().info("Docker: " + host.getHost() + " is UP !");
+            } else {
+                Spectrolus.getLogger().warn("Docker: " + host.getHost() + " is DONW !");
             }
         });
+    }
+
+    public String buildContainer(DockerClient client, String name, File dockerFile) {
+        Set<String> tags = new HashSet<>();
+        tags.add(name);
+        Spectrolus.getLogger().info("Start Building container " + name);
+        BuildImageResultCallback callback = new BuildImageResultCallback() {
+            @Override
+            public void onNext(BuildResponseItem item) {
+                Spectrolus.getLogger().info(item.getStream());
+                super.onNext(item);
+            }
+        };
+
+        return client.buildImageCmd(dockerFile).withTags(tags).exec(callback).awaitImageId();
     }
 
     public interface DockerInterface {
