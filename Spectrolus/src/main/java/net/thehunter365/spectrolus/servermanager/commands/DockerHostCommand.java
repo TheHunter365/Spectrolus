@@ -21,7 +21,7 @@ public class DockerHostCommand implements CommandExecutor {
             switch (type) {
                 case "add":
                     DockerRemote r = new DockerRemote(true, data);
-
+                    this.dockerClientPool.getRemoteManager().addRemote(r);
                     break;
                 case "remove":
 

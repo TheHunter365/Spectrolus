@@ -1,6 +1,7 @@
 package net.thehunter365.spectrolus.servermanager.docker;
 
 import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.command.PingCmd;
 import com.github.dockerjava.api.model.BuildResponseItem;
 import com.github.dockerjava.api.model.Info;
 import com.github.dockerjava.core.DockerClientBuilder;
@@ -42,6 +43,7 @@ public class DockerClientPool {
 
         return isUp;
     }
+
 
     /*public void addRemoteHost(DockerRemote remote) {
         if (remote.isEnabled()) {
