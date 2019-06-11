@@ -25,7 +25,7 @@ public class ServerImage {
         this.map = map;
     }
 
-    public ServerContainer runImage(DockerRemote remote, DockerClient client) {
+    public ServerContainer toContainer(DockerRemote remote, DockerClient client) {
 
         String name = this.minigame+this.map+"-"+ IdGenerator.getId();
         int port = remote.getNextPort();

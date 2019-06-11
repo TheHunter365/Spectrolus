@@ -13,7 +13,7 @@ public class ServerContainer {
 
     private int port;
 
-    public ServerContainer(String remote, String name, String minigame, String map, int port) {
+    ServerContainer(String remote, String name, String minigame, String map, int port) {
         this.remote = remote;
         this.name = name;
         this.minigame = minigame;

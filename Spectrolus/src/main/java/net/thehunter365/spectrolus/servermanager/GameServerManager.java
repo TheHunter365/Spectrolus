@@ -20,8 +20,6 @@ public class GameServerManager {
 
     private Set<ServerTemplate> templateServers;
 
-    private List<ProxyImage> runnedProxies;
-    private List<ServerImage> runnedServers;
 
     public GameServerManager(DockerClientPool dockerClientPool) {
         this.dockerClientPool = dockerClientPool;
@@ -29,8 +27,6 @@ public class GameServerManager {
 
         this.templateServers = new HashSet<>();
 
-        this.runnedProxies = new ArrayList<>();
-        this.runnedServers = new ArrayList<>();
     }
 
     public void buildTemplates(DockerClient dockerClient) {
@@ -44,12 +40,12 @@ public class GameServerManager {
             File[] maps = mapsFolder.listFiles();
             if (maps != null && maps.length != 0) {
                 if (FileUtils.exist(minigame, "Dockerfile")) {
-                    String id = this.dockerClientPool.buildContainer(dockerClient, minigame.getName(), new File(minigame, "Dockerfile"));
+                    //String id = this.dockerClientPool.buildContainer(dockerClient, minigame.getName(), new File(minigame, "Dockerfile"));
 
-                    ServerTemplate template = new ServerTemplate(minigame.getName().replace("/",""), id);
-                    for (File map : maps)template.addMap(map.getName().replace("/", ""));
+                    //ServerTemplate template = new ServerTemplate(minigame.getName().replace("/",""), id);
+                    //for (File map : maps)template.addMap(map.getName().replace("/", ""));
 
-                    this.templateServers.add(template);
+                    //this.templateServers.add(template);
                     Spectrolus.getLogger().info("Successfully added " + minigame.getName());
                 } else {
                     Spectrolus.getLogger().fail("Unknown Dockerfile for " + minigame.getName());
@@ -61,7 +57,7 @@ public class GameServerManager {
     }
 
     public void buildTemplates() {
-        this.dockerClientPool.forEachClient(this::buildTemplates);
+        //this.dockerClientPool.forEachClient(this::buildTemplates);
     }
 
     public Set<ServerTemplate> getTemplateServers() {
