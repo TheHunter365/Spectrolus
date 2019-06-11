@@ -6,6 +6,7 @@ import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
 import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
 import net.thehunter365.spectrolus.servermanager.GameServerManager;
+import net.thehunter365.spectrolus.servermanager.commands.DockerHostCommand;
 import net.thehunter365.spectrolus.servermanager.commands.TemplateCommand;
 import net.thehunter365.spectrolus.servermanager.docker.DockerClientPool;
 import net.thehunter365.spectrolus.servermanager.docker.DockerRemote;
@@ -56,6 +57,7 @@ public class Spectrolus {
 
     private void registerCommands() {
         this.commandManager.createCommand("template", new TemplateCommand(this.gameServerManager));
+        this.commandManager.createCommand("dockerh", new DockerHostCommand(this.dockerClientPool));
     }
 
     public static Logger getLogger() {

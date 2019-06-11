@@ -6,18 +6,18 @@ import java.util.List;
 public class ServerTemplate {
 
     private String minigame;
-    private String containerId;
+    private String imageId;
 
     private List<String> maps;
 
-    public ServerTemplate(String minigame, String containerId) {
+    public ServerTemplate(String minigame, String imageId) {
         this.minigame = minigame;
-        this.containerId = containerId;
+        this.imageId = imageId;
         this.maps = new ArrayList<>();
     }
 
-    public String getContainerId() {
-        return containerId;
+    public String getImageId() {
+        return imageId;
     }
 
     public String getMinigame() {

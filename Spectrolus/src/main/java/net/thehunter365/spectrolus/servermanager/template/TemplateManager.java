@@ -1,13 +1,16 @@
 package net.thehunter365.spectrolus.servermanager.template;
 
 import java.io.File;
+import java.util.List;
 
 public class TemplateManager {
 
-    private File templateFolder;
+    private String templateFolderName;
+
+    private List<ServerTemplate> templates;
 
     public TemplateManager(String templateFolder) {
-        this.templateFolder = new File(templateFolder);
+        this.templateFolderName = templateFolder;
     }
 
     public int checkForServers() {
@@ -21,8 +24,9 @@ public class TemplateManager {
     }
 
     public File[] minigamesFiles() {
+        File templateFolder = new File(templateFolderName);
         File[] files = null;
-        if (this.templateFolder.exists()) {
+        if (templateFolder.exists()) {
 
             File minigameFolder = new File(templateFolder, "minigames/");
 
@@ -39,7 +43,14 @@ public class TemplateManager {
         return files;
     }
 
-    public File getTemplateFolder() {
-        return templateFolder;
+    public File[] getMaps(File minigameFolder) {
+        File[] maps = null;
+        File mapsFolder = new File(minigameFolder, "maps/");
+        if (mapsFolder.exists()) maps = mapsFolder.listFiles();
+        return maps;
+    }
+
+    public String getTemplateFolderName() {
+        return templateFolderName;
     }
 }

@@ -8,20 +8,42 @@ import com.github.dockerjava.core.command.BuildImageResultCallback;
 import net.thehunter365.spectrolus.Spectrolus;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class DockerClientPool {
 
+    private DockerRemoteManager remoteManager;
+    private List<DockerClient> clientList;
+
     private Map<DockerRemote, DockerClient> dockerClientMap;
 
-    public DockerClientPool() {
+    public DockerClientPool(DockerRemoteManager manager) {
+        this.remoteManager = manager;
+        this.clientList = new ArrayList<>();
+
         this.dockerClientMap = new HashMap<>();
     }
 
-    public void addRemoteHost(DockerRemote remote) {
+    public DockerRemoteManager getRemoteManager() {
+        return remoteManager;
+    }
+
+    private void initClients() {
+        this.remoteManager.getRemoteList().stream()
+                .filter(DockerRemote::isEnabled)
+                .forEach(host -> {
+                    DockerClient client = DockerClientBuilder.getInstance(host.getHost()).build();
+                    this.clientList.add(client);
+                });
+    }
+
+    private boolean checkForClient(DockerClient client) {
+        boolean isUp = false;
+
+        return isUp;
+    }
+
+    /*public void addRemoteHost(DockerRemote remote) {
         if (remote.isEnabled()) {
             DockerClient dockerClient = DockerClientBuilder.getInstance(remote.getHost()).build();
             this.dockerClientMap.put(remote, dockerClient);
@@ -67,7 +89,7 @@ public class DockerClientPool {
         };
 
         return client.buildImageCmd(dockerFile).withTags(tags).exec(callback).awaitImageId();
-    }
+    }*/
 
     public interface DockerInterface {
         void forEach(DockerClient client);

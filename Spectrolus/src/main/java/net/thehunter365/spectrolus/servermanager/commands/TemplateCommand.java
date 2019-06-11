@@ -14,8 +14,8 @@ public class TemplateCommand implements CommandExecutor {
 
     @Override
     public void executeCommand(String[] args) {
-        int lengh = args.length;
-        if (lengh == 1) {
+        int length = args.length;
+        if (length == 1) {
             switch (args[0]) {
                 case "list":
                     this.gameServerManager.getTemplateServers().forEach(
