@@ -28,5 +28,9 @@ public class DockerRemoteManager {
         this.remoteList.remove(index);
     }
 
+    public DockerRemote getRemote(String host) {
+        return this.remoteList.stream().filter(h-> h.getHost().equals(host)).findFirst()
+                .orElse(null);
+    }
 
 }

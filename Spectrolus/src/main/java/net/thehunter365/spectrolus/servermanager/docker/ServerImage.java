@@ -39,10 +39,13 @@ public class ServerImage {
         CreateContainerResponse containerResponse = client.createContainerCmd(containerTag)
                 .withHostConfig(hostConfig)
                 .exec();
-        container.setId(containerResponse.getId());
+
+        String id = containerResponse.getId();
+
+        container.setId(id);
         Spectrolus.getLogger().success("Successfully created: " + name + " container !");
 
-        client.startContainerCmd(containerResponse.getId()).exec();
+        client.startContainerCmd(id).exec();
         Spectrolus.getLogger().success("Successfully started: " + name + " container !");
 
         return container;

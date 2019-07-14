@@ -43,11 +43,11 @@ public class Spectrolus {
 
         this.executorService.submit(this.asyncCommandExecutor);
 
-        this.dockerClientPool = new DockerClientPool();
+        //this.dockerClientPool = new DockerClientPool();
 
-        this.dockerClientPool.addRemoteHost(new DockerRemote(true, "tcp://144.76.154.85:2375"));
+        //this.dockerClientPool.addRemoteHost(new DockerRemote(true, "tcp://144.76.154.85:2375"));
 
-        this.dockerClientPool.checkHosts();
+        //this.dockerClientPool.checkHosts();
         this.gameServerManager = new GameServerManager(this.dockerClientPool);
 
         this.gameServerManager.buildTemplates();
