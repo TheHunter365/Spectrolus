@@ -1,27 +1,20 @@
 package net.thehunter365.spectrolus.servermanager.docker;
 
 import com.github.dockerjava.api.DockerClient;
-import com.github.dockerjava.api.command.PingCmd;
-import com.github.dockerjava.api.model.BuildResponseItem;
-import com.github.dockerjava.api.model.Info;
+import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
-import com.github.dockerjava.core.command.BuildImageResultCallback;
-import net.thehunter365.spectrolus.Spectrolus;
+import com.github.dockerjava.core.DockerClientConfig;
 
-import java.io.File;
 import java.util.*;
 
 public class DockerClientPool {
 
     private DockerRemoteManager remoteManager;
-    private List<DockerClient> clientList;
 
     private Map<DockerRemote, DockerClient> dockerClientMap;
 
     public DockerClientPool(DockerRemoteManager manager) {
         this.remoteManager = manager;
-        this.clientList = new ArrayList<>();
-
         this.dockerClientMap = new HashMap<>();
     }
 
@@ -33,10 +26,25 @@ public class DockerClientPool {
         this.remoteManager.getRemoteList().stream()
                 .filter(DockerRemote::isEnabled)
                 .forEach(host -> {
-                    DockerClient client = DockerClientBuilder.getInstance(host.getHost()).build();
-                    this.clientList.add(client);
+                    DefaultDockerClientConfig config = DefaultDockerClientConfig.createDefaultConfigBuilder()
+                            .withDockerHost(host.getHost())
+                            .withDockerTlsVerify(true)
+                            .withDockerCertPath(host.getCertificatePath()).build();
+                    DockerClient client = DockerClientBuilder.getInstance(config).build();
+                    this.dockerClientMap.put(host, client);
                 });
     }
+
+    public DockerClient getDockerClient(String name) {
+        Map.Entry<DockerRemote, DockerClient> entry = this.dockerClientMap.entrySet().stream().filter(k -> k.getKey().getName().equals(name)).findFirst().orElse(null);
+        if (entry != null) {
+            return entry.getValue();
+        }
+        return null;
+    }
+
+
+
 
     private boolean checkForClient(DockerClient client) {
         boolean isUp = false;
