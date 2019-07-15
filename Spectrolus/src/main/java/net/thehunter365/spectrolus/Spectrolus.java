@@ -1,5 +1,7 @@
 package net.thehunter365.spectrolus;
 
+import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.core.DockerClientBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
@@ -9,7 +11,8 @@ import net.thehunter365.spectrolus.servermanager.GameServerManager;
 import net.thehunter365.spectrolus.servermanager.commands.DockerHostCommand;
 import net.thehunter365.spectrolus.servermanager.commands.TemplateCommand;
 import net.thehunter365.spectrolus.servermanager.docker.DockerClientPool;
-import net.thehunter365.spectrolus.servermanager.docker.DockerRemote;
+import net.thehunter365.spectrolus.servermanager.docker.DockerRemoteManager;
+import net.thehunter365.spectrolusconnector.SpectrolusConnector;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,14 +25,21 @@ public class Spectrolus {
 
     private Gson gson;
 
+    private SpectrolusConnector spectrolusConnector;
+
     private CommandManager commandManager;
     private AsyncCommandExecutor asyncCommandExecutor;
 
+    private DockerRemoteManager dockerRemoteManager;
     private DockerClientPool dockerClientPool;
     private GameServerManager gameServerManager;
 
+    private DockerClient localClient;
+
     public Spectrolus() {
         LOGGER = new Logger();
+
+        this.localClient = DockerClientBuilder.getInstance("tcp://localhost:2375").build();
 
         this.executorService = Executors.newFixedThreadPool(8);
 
@@ -38,12 +48,15 @@ public class Spectrolus {
                 .serializeNulls()
                 .create();
 
+        this.spectrolusConnector = new SpectrolusConnector();
+
         this.commandManager = new CommandManager();
         this.asyncCommandExecutor = new AsyncCommandExecutor(this.commandManager);
 
         this.executorService.submit(this.asyncCommandExecutor);
 
-        //this.dockerClientPool = new DockerClientPool();
+        this.dockerRemoteManager = new DockerRemoteManager();
+        this.dockerClientPool = new DockerClientPool(this.dockerRemoteManager);
 
         //this.dockerClientPool.addRemoteHost(new DockerRemote(true, "tcp://144.76.154.85:2375"));
 
@@ -64,6 +77,10 @@ public class Spectrolus {
         return LOGGER;
     }
 
+    public SpectrolusConnector getSpectrolusConnector() {
+        return spectrolusConnector;
+    }
+
     public Gson getGson() {
         return gson;
     }
@@ -78,5 +95,9 @@ public class Spectrolus {
 
     public DockerClientPool getDockerClientPool() {
         return dockerClientPool;
+    }
+
+    public DockerClient getLocalClient() {
+        return localClient;
     }
 }

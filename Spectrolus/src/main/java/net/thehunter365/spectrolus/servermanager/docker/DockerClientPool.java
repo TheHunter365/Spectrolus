@@ -3,7 +3,6 @@ package net.thehunter365.spectrolus.servermanager.docker;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.core.DefaultDockerClientConfig;
 import com.github.dockerjava.core.DockerClientBuilder;
-import com.github.dockerjava.core.DockerClientConfig;
 
 import java.util.*;
 
@@ -16,6 +15,8 @@ public class DockerClientPool {
     public DockerClientPool(DockerRemoteManager manager) {
         this.remoteManager = manager;
         this.dockerClientMap = new HashMap<>();
+
+        this.initClients();
     }
 
     public DockerRemoteManager getRemoteManager() {

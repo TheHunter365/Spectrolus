@@ -3,14 +3,11 @@ package net.thehunter365.spectrolus.servermanager.docker.images;
 public class DockerImage {
 
     private String name;
-    private String tag;
+    private String id;
 
-    private long sizeByte;
-
-    public DockerImage(String name, String tag, long sizeByte) {
+    public DockerImage(String name, String id) {
         this.name = name;
-        this.tag = tag;
-        this.sizeByte = sizeByte;
+        this.id = id;
     }
 
 
@@ -18,11 +15,8 @@ public class DockerImage {
         return name;
     }
 
-    public String getTag() {
-        return tag;
+    public String getId() {
+        return id;
     }
 
-    public long getSizeByte() {
-        return sizeByte;
-    }
 }

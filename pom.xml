@@ -11,6 +11,7 @@
     <modules>
         <module>Spectrolus</module>
         <module>SpectrolusConnector</module>
+        <module>SpectroCloudFlare</module>
     </modules>
 
     <build>
