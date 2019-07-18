@@ -30,9 +30,9 @@ public class Spectrolus {
     private CommandManager commandManager;
     private AsyncCommandExecutor asyncCommandExecutor;
 
-    private DockerRemoteManager dockerRemoteManager;
-    private DockerClientPool dockerClientPool;
-    private GameServerManager gameServerManager;
+    //private DockerRemoteManager dockerRemoteManager;
+    //private DockerClientPool dockerClientPool;
+    //private GameServerManager gameServerManager;
 
     private DockerClient localClient;
 
@@ -48,29 +48,29 @@ public class Spectrolus {
                 .serializeNulls()
                 .create();
 
-        this.spectrolusConnector = new SpectrolusConnector();
+        //this.spectrolusConnector = new SpectrolusConnector();
 
         this.commandManager = new CommandManager();
         this.asyncCommandExecutor = new AsyncCommandExecutor(this.commandManager);
 
         this.executorService.submit(this.asyncCommandExecutor);
 
-        this.dockerRemoteManager = new DockerRemoteManager();
-        this.dockerClientPool = new DockerClientPool(this.dockerRemoteManager);
+        //this.dockerRemoteManager = new DockerRemoteManager();
+        //this.dockerClientPool = new DockerClientPool(this.dockerRemoteManager);
 
         //this.dockerClientPool.addRemoteHost(new DockerRemote(true, "tcp://144.76.154.85:2375"));
 
         //this.dockerClientPool.checkHosts();
-        this.gameServerManager = new GameServerManager(this.dockerClientPool);
+        //this.gameServerManager = new GameServerManager(this.dockerClientPool);
 
-        this.gameServerManager.buildTemplates();
+        //this.gameServerManager.buildTemplates();
 
     }
 
 
     private void registerCommands() {
-        this.commandManager.createCommand("template", new TemplateCommand(this.gameServerManager));
-        this.commandManager.createCommand("dockerh", new DockerHostCommand(this.dockerClientPool));
+        //this.commandManager.createCommand("template", new TemplateCommand(this.gameServerManager));
+        //this.commandManager.createCommand("dockerh", new DockerHostCommand(this.dockerClientPool));
     }
 
     public static Logger getLogger() {
@@ -89,13 +89,13 @@ public class Spectrolus {
         return executorService;
     }
 
-    public GameServerManager getGameServerManager() {
+    /*public GameServerManager getGameServerManager() {
         return gameServerManager;
     }
 
     public DockerClientPool getDockerClientPool() {
         return dockerClientPool;
-    }
+    }*/
 
     public DockerClient getLocalClient() {
         return localClient;

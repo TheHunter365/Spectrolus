@@ -1,43 +1,32 @@
 package net.thehunter365.test;
 
-import java.util.ArrayList;
+
+import com.github.dockerjava.api.DockerClient;
+import com.github.dockerjava.api.model.Image;
+import com.github.dockerjava.api.model.Network;
+import com.github.dockerjava.api.model.Service;
+import com.github.dockerjava.api.model.ServiceSpec;
+import com.github.dockerjava.core.DockerClientBuilder;
+
 import java.util.List;
-import java.util.concurrent.*;
 
 public class Test {
 
     public static void main(String[] args) {
-        ExecutorService service = Executors.newFixedThreadPool(8);
 
-        List<Future<Integer>> futures = new ArrayList<>();
+        /*DockerClient client = DockerClientBuilder.getInstance("tcp://localhost:2375").build();
 
-        for (int i = 0; i <= 10; i ++) {
-            for (int j = 0; j <= 10; j++) {
-                Callable<Integer> worker = worker(i, j);
-                Future<Integer> integerFuture = service.submit(worker);
-                futures.add(integerFuture);
-            }
-        }
+        List<Image> images = client.listImagesCmd().exec();
 
-        System.out.println("blablabla");
-        System.out.println("blablabla");
-        System.out.println("blablabla");
-        System.out.println("blablabla");
+        ServiceSpec serviceSpec = new ServiceSpec();
 
-        futures.forEach(f-> {
-            try {
-                System.out.println(f.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        });
+        images.forEach(image -> System.out.println("Name: " + image.getRepoTags()[0]+ " Size: " + image.getSize()));
 
 
+        List<Network> networkList = client.listNetworksCmd().exec();
+        networkList.forEach(network -> System.out.println(
+                "Driver: " + network.getDriver() + " Name: " + network.getName()
+        ));*/
 
-    }
-
-
-    public static Callable<Integer> worker(int a, int b) {
-        return ()-> a*b;
     }
 }
