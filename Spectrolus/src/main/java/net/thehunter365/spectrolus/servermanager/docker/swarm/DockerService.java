@@ -1,10 +1,13 @@
 package net.thehunter365.spectrolus.servermanager.docker.swarm;
 
 import com.github.dockerjava.api.model.ContainerSpec;
+import com.github.dockerjava.api.model.NetworkAttachmentConfig;
 import com.github.dockerjava.api.model.ServiceSpec;
 import com.github.dockerjava.api.model.TaskSpec;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DockerService {
@@ -70,9 +73,16 @@ public class DockerService {
                 .withImage(this.imageId)
                 .withHostname(this.hostname);
 
+        List<NetworkAttachmentConfig> networks = new ArrayList<>();
+
+        networks.add(
+                new NetworkAttachmentConfig()
+                .withTarget(this.network)
+        );
 
         TaskSpec taskSpec = new TaskSpec()
-                .withContainerSpec(containerSpec);
+                .withContainerSpec(containerSpec)
+                .withNetworks(networks);
 
         ServiceSpec serviceSpec = new ServiceSpec();
         serviceSpec.withName(this.name)

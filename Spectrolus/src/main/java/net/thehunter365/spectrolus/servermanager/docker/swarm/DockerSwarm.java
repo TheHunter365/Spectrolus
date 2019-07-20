@@ -12,17 +12,11 @@ public class DockerSwarm {
 
     public DockerSwarm(DockerClient client) {
         this.client = client;
+    }
 
-        ContainerSpec containerSpec = new ContainerSpec()
-                .withImage("image");
-
-        TaskSpec taskSpec = new TaskSpec()
-                .withContainerSpec(containerSpec);
-
-        ServiceSpec serviceSpec = new ServiceSpec();
-
-        this.client.createServiceCmd(serviceSpec);
-
+    public void runService(DockerService service) {
+        this.client.createServiceCmd(service.toSwarmService())
+                .exec();
     }
 
     public Swarm getSwarm() {

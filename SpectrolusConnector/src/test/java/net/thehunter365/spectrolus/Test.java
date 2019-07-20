@@ -3,6 +3,7 @@ package net.thehunter365.spectrolus;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.Pipeline;
 
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
@@ -28,12 +29,12 @@ public class Test {
 
         long start = System.currentTimeMillis();
 
-        /*Pipeline pipeline = jedis.pipelined();
+        Pipeline pipeline = jedis.pipelined();
         for (int i = 0; i <= operation; i++) {
             pipeline.set("test"+i, "value"+i);
             pipeline.get("test"+i);
         }
-        pipeline.sync();*/
+        pipeline.sync();
 
         long end = System.currentTimeMillis() - start;
         System.out.println("Took: " + end +"ms");
