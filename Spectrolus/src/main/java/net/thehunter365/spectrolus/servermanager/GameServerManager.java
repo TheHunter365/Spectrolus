@@ -3,8 +3,6 @@ package net.thehunter365.spectrolus.servermanager;
 import com.github.dockerjava.api.DockerClient;
 import net.thehunter365.spectrolus.Spectrolus;
 import net.thehunter365.spectrolus.servermanager.docker.DockerClientPool;
-import net.thehunter365.spectrolus.servermanager.docker.ProxyImage;
-import net.thehunter365.spectrolus.servermanager.docker.ServerImage;
 import net.thehunter365.spectrolus.servermanager.template.ServerTemplate;
 import net.thehunter365.spectrolus.servermanager.template.TemplateManager;
 import net.thehunter365.spectrolus.utils.FileUtils;
