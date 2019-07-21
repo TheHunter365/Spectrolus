@@ -7,11 +7,6 @@ import com.google.gson.GsonBuilder;
 import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
 import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
-import net.thehunter365.spectrolus.servermanager.GameServerManager;
-import net.thehunter365.spectrolus.servermanager.commands.DockerHostCommand;
-import net.thehunter365.spectrolus.servermanager.commands.TemplateCommand;
-import net.thehunter365.spectrolus.servermanager.docker.DockerClientPool;
-import net.thehunter365.spectrolus.servermanager.docker.DockerRemoteManager;
 import net.thehunter365.spectrolusconnector.SpectrolusConnector;
 
 import java.util.concurrent.ExecutorService;

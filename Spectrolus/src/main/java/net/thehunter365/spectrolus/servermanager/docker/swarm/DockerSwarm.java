@@ -19,6 +19,11 @@ public class DockerSwarm {
                 .exec();
     }
 
+    public void removeService(DockerService service) {
+        this.client.removeServiceCmd(service.getName())
+                .exec();
+    }
+
     public Swarm getSwarm() {
         return this.client.inspectSwarmCmd().exec();
     }

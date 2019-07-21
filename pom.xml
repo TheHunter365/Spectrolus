@@ -12,6 +12,7 @@
         <module>Spectrolus</module>
         <module>SpectrolusConnector</module>
         <module>SpectroCloudFlare</module>
+        <module>SpectroProxy</module>
     </modules>
 
     <build>

@@ -23,7 +23,7 @@ public class ImageWorker {
             @Override
             public void onNext(BuildResponseItem item) {
                 if (item != null)
-                    Spectrolus.getLogger().info(item.getStream());
+                    Spectrolus.getLogger().info(tag + " : " + item.getStream());
                 super.onNext(item);
             }
         };
