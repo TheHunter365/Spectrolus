@@ -72,18 +72,14 @@ public class DockerService {
         ContainerSpec containerSpec = new ContainerSpec()
                 .withImage(this.imageId)
                 .withHostname(this.hostname);
-
         List<NetworkAttachmentConfig> networks = new ArrayList<>();
-
         networks.add(
                 new NetworkAttachmentConfig()
                 .withTarget(this.network)
         );
-
         TaskSpec taskSpec = new TaskSpec()
                 .withContainerSpec(containerSpec)
                 .withNetworks(networks);
-
         ServiceSpec serviceSpec = new ServiceSpec();
         serviceSpec.withName(this.name)
                 .withTaskTemplate(taskSpec);

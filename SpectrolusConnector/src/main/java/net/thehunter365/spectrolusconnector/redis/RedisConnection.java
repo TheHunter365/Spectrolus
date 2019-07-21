@@ -15,7 +15,12 @@ public class RedisConnection {
 
     public RedisConnection(String host, int port, String user, String pass) {
         JedisPoolConfig config = new JedisPoolConfig();
-        //this.jedisPool = new JedisPool(new JedisPoolConfig(), host, port, user, pass);
+        this.jedisPool = new JedisPool(config);
+        this.jedis = this.getJedis();
+    }
+
+    public RedisConnection() {
+        JedisPoolConfig config = new JedisPoolConfig();
         this.jedisPool = new JedisPool(config);
         this.jedis = this.getJedis();
     }

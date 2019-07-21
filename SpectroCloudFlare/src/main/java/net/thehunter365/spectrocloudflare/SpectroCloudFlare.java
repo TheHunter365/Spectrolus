@@ -15,4 +15,8 @@ public class SpectroCloudFlare {
         this.apiKey = apiKey;
         this.endPoint = "https://api.cloudflare.com/client/v4";
     }
+
+    public boolean addNewSrv() {
+        return false;
+    }
 }
