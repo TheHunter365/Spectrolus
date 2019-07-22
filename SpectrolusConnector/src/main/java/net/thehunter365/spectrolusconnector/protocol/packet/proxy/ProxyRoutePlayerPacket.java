@@ -1,8 +1,10 @@
 package net.thehunter365.spectrolusconnector.protocol.packet.proxy;
 
+import net.thehunter365.spectrolusconnector.protocol.packet.AbstractPacket;
+
 import java.util.UUID;
 
-public class ProxyRoutePlayerPacket {
+public class ProxyRoutePlayerPacket extends AbstractPacket {
 
     private String serverId;
 

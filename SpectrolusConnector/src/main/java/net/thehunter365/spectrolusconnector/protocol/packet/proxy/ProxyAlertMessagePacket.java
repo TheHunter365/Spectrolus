@@ -1,18 +1,13 @@
 package net.thehunter365.spectrolusconnector.protocol.packet.proxy;
 
-public class ProxyAlertMessagePacket {
+import net.thehunter365.spectrolusconnector.protocol.packet.AbstractPacket;
 
-    private String id;
+public class ProxyAlertMessagePacket extends AbstractPacket {
 
     private String message;
 
-    public ProxyAlertMessagePacket(String id, String message) {
-        this.id = id;
+    public ProxyAlertMessagePacket(String message) {
         this.message = message;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getMessage() {

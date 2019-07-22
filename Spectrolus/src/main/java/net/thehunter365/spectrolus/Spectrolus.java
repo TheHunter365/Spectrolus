@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
 import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
+import net.thehunter365.spectrolus.servermanager.docker.swarm.DockerSwarm;
 import net.thehunter365.spectrolusconnector.SpectrolusConnector;
 
 import java.util.concurrent.ExecutorService;
@@ -31,10 +32,13 @@ public class Spectrolus {
 
     private DockerClient localClient;
 
+    private DockerSwarm dockerSwarm;
+
     public Spectrolus() {
         LOGGER = new Logger();
 
-        this.localClient = DockerClientBuilder.getInstance("tcp://localhost:2375").build();
+        this.localClient = DockerClientBuilder.getInstance("/var/run/docker.sock").build();
+        this.dockerSwarm = new DockerSwarm(this.localClient);
 
         this.executorService = Executors.newFixedThreadPool(8);
 
@@ -43,19 +47,14 @@ public class Spectrolus {
                 .serializeNulls()
                 .create();
 
-        //this.spectrolusConnector = new SpectrolusConnector();
+        this.spectrolusConnector = new SpectrolusConnector(this.gson);
 
         this.commandManager = new CommandManager();
         this.asyncCommandExecutor = new AsyncCommandExecutor(this.commandManager);
 
         this.executorService.submit(this.asyncCommandExecutor);
 
-        //this.dockerRemoteManager = new DockerRemoteManager();
-        //this.dockerClientPool = new DockerClientPool(this.dockerRemoteManager);
 
-        //this.dockerClientPool.addRemoteHost(new DockerRemote(true, "tcp://144.76.154.85:2375"));
-
-        //this.dockerClientPool.checkHosts();
         //this.gameServerManager = new GameServerManager(this.dockerClientPool);
 
         //this.gameServerManager.buildTemplates();
