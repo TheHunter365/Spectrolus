@@ -1,6 +1,8 @@
 package net.thehunter365.spectrolusconnector.protocol.packet.server;
 
-public class ServerRequestPacket {
+import net.thehunter365.spectrolusconnector.protocol.packet.AbstractPacket;
+
+public class ServerRequestPacket extends AbstractPacket {
 
     private String type;
     private String map;

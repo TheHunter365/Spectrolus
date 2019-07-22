@@ -18,4 +18,5 @@ public class HeartBeatPacket extends AbstractPacket {
     public String getId() {
         return id;
     }
+
 }

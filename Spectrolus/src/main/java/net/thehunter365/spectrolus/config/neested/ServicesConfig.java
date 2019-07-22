@@ -4,5 +4,11 @@ public class ServicesConfig {
 
     private int maxMemoryM;
 
+    public ServicesConfig(int maxMemoryM) {
+        this.maxMemoryM = maxMemoryM;
+    }
 
+    public int getMaxMemoryM() {
+        return maxMemoryM;
+    }
 }
