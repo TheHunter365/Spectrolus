@@ -47,7 +47,6 @@ public enum Protocol {
                 break;
             }
         }
-
         return id;
     }
 

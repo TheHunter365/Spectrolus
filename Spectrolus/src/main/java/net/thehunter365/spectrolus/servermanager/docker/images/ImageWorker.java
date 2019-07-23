@@ -10,11 +10,18 @@ import java.util.stream.Stream;
 
 public class ImageWorker {
 
-
     private Spectrolus spectrolus;
 
     public ImageWorker(Spectrolus spectrolus) {
         this.spectrolus = spectrolus;
+    }
+
+    public void buildAll() {
+        File file = new File("./templates/");
+        File[] files = file.listFiles();
+        assert files != null;
+        Stream.of(files)
+                .forEach(f -> this.buildImage(new File(f, "Dockerfile"), f.getName()));
     }
 
     private boolean buildImage(File dockerFile, String tag) {
