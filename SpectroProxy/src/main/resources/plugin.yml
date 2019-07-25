@@ -1,0 +1,4 @@
+name: SpectroProxy
+version: 1.0
+author: TheHunter365
+main: net.thehunter365.spectroproxy.SpectroProxy

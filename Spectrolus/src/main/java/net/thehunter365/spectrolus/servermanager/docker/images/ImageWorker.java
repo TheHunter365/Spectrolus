@@ -1,6 +1,8 @@
 package net.thehunter365.spectrolus.servermanager.docker.images;
 
 import com.github.dockerjava.api.model.BuildResponseItem;
+import com.github.dockerjava.api.model.Identifier;
+import com.github.dockerjava.api.model.Repository;
 import com.github.dockerjava.core.command.BuildImageResultCallback;
 import net.thehunter365.spectrolus.Spectrolus;
 
@@ -39,8 +41,9 @@ public class ImageWorker {
                 .withTags(Stream.of(tag).collect(Collectors.toSet())).exec(callback).awaitImageId();
 
         DockerImage image = new DockerImage(tag, id);
+        Repository repository = new Repository("evogames.fr");
+        this.spectrolus.getLocalClient().pushImageCmd(new Identifier(repository, tag));
 
-
-        return false;
+        return true;
     }
 }

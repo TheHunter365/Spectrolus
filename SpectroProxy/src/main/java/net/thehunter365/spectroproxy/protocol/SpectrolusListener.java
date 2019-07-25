@@ -1,4 +1,4 @@
-package fr.evogames.spectroproxy.protocol;
+package net.thehunter365.spectroproxy.protocol;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ProxyServer;
