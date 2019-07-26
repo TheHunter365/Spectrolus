@@ -8,6 +8,7 @@ import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyRemoveSer
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyRoutePlayerPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.server.ServerRequestPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.server.ServerStatePacket;
+import net.thehunter365.spectrolusconnector.protocol.packet.spectrologger.AskForServiceDiscoveryPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.spectrologger.LogPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.spectrologger.ServiceDiscoveryPacket;
 
@@ -24,7 +25,8 @@ public enum Protocol {
     SERVER_STATE_PACKET(11, ServerStatePacket.class),
 
     LOG_PACKET(30, LogPacket.class),
-    SERVICE_DISCOVERY_PACKET(31, ServiceDiscoveryPacket.class),
+    ASK_FOR_SERVICE_DISCOVERY_PACKET(31, AskForServiceDiscoveryPacket.class),
+    SERVICE_DISCOVERY_PACKET(32, ServiceDiscoveryPacket.class),
 
     ;
     public static final String SPLIT_CHAR = "&";

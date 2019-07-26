@@ -6,19 +6,26 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.thehunter365.spectrolusconnector.protocol.event.EventHandler;
-import net.thehunter365.spectrolusconnector.protocol.event.Listener;
+import net.thehunter365.spectrolusconnector.protocol.event.PacketListener;
 import net.thehunter365.spectrolusconnector.protocol.packet.AbstractPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.PacketReceiveEvent;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyAlertMessagePacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyHookServerPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyRemoveServerPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyRoutePlayerPacket;
+import net.thehunter365.spectroproxy.SpectroProxy;
 
 import java.net.InetSocketAddress;
 import java.util.UUID;
 
-public class SpectrolusListener implements Listener {
+public class SpectrolusListener extends PacketListener {
 
+
+    private String channel;
+
+    public SpectrolusListener() {
+        this.channel = SpectroProxy.CHANNEL;
+    }
 
     @EventHandler
     public void onPacket(PacketReceiveEvent event) {
@@ -93,5 +100,15 @@ public class SpectrolusListener implements Listener {
         ProxyServer.getInstance()
                 .getServers().remove(packet.getServerId());
 
+    }
+
+    @Override
+    public String getChannel() {
+        return this.channel;
+    }
+
+    @Override
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 }

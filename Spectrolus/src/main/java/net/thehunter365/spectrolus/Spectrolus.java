@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
 import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
+import net.thehunter365.spectrolus.protocol.SpectroProtocol;
 import net.thehunter365.spectrolus.servermanager.GameServerManager;
 import net.thehunter365.spectrolus.servermanager.commands.DockerCommand;
 import net.thehunter365.spectrolus.servermanager.docker.DockerLogManager;
@@ -67,6 +68,9 @@ public class Spectrolus {
 
         this.gameServerManager = new GameServerManager(this);
         this.gameServerManager.initGames();
+
+        this.getSpectrolusConnector().getEventManager()
+                .registerListener(new SpectroProtocol(this));
 
     }
 
