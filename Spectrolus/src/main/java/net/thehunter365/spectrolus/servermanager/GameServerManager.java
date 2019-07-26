@@ -1,64 +1,103 @@
 package net.thehunter365.spectrolus.servermanager;
 
-import com.github.dockerjava.api.DockerClient;
 import net.thehunter365.spectrolus.Spectrolus;
-import net.thehunter365.spectrolus.servermanager.docker.DockerClientPool;
-import net.thehunter365.spectrolus.servermanager.template.ServerTemplate;
-import net.thehunter365.spectrolus.servermanager.template.TemplateManager;
-import net.thehunter365.spectrolus.utils.FileUtils;
+import net.thehunter365.spectrolus.servermanager.docker.swarm.DockerService;
+import net.thehunter365.spectrolus.servermanager.docker.swarm.DockerSwarm;
+import net.thehunter365.spectrolus.utils.IdGenerator;
+import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyHookServerPacket;
 
-import java.io.File;
-import java.util.*;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class GameServerManager {
 
-    private DockerClientPool dockerClientPool;
+    private Spectrolus spectrolus;
+    private DockerSwarm dockerSwarm;
 
-    private TemplateManager templateManager;
+    private Set<String> gameServer;
+    private Set<String> gameProxy;
 
-    private Set<ServerTemplate> templateServers;
-
-
-    public GameServerManager(DockerClientPool dockerClientPool) {
-        this.dockerClientPool = dockerClientPool;
-        this.templateManager = new TemplateManager("templates/");
-
-        this.templateServers = new HashSet<>();
-
+    public GameServerManager(Spectrolus spectrolus) {
+        this.dockerSwarm = spectrolus.getDockerSwarm();
     }
 
-    public void buildTemplates(DockerClient dockerClient) {
-        int minigamesCount = templateManager.checkForServers();
+    public DockerSwarm getDockerSwarm() {
+        return dockerSwarm;
+    }
 
-        if (minigamesCount == 0) return;
-        File[] minigames = this.templateManager.minigamesFiles();
+    public String startProxy() {
+        String id = "proxy"+ IdGenerator.getId();
 
-        for (File minigame : minigames) {
-            File mapsFolder = new File(minigame, "maps/");
-            File[] maps = mapsFolder.listFiles();
-            if (maps != null && maps.length != 0) {
-                if (FileUtils.exist(minigame, "Dockerfile")) {
-                    //String id = this.dockerClientPool.buildContainer(dockerClient, minigame.getName(), new File(minigame, "Dockerfile"));
+        DockerService service = new DockerService(
+                id, "evo-proxy", "evo-net"
+        );
+        service.addPort(45565, 25565);
 
-                    //ServerTemplate template = new ServerTemplate(minigame.getName().replace("/",""), id);
-                    //for (File map : maps)template.addMap(map.getName().replace("/", ""));
+        this.dockerSwarm.runService(service);
 
-                    //this.templateServers.add(template);
-                    Spectrolus.getLogger().info("Successfully added " + minigame.getName());
-                } else {
-                    Spectrolus.getLogger().fail("Unknown Dockerfile for " + minigame.getName());
-                }
-            } else {
-                Spectrolus.getLogger().fail("Unknown maps for " + minigame.getName());
-            }
+        this.gameProxy.add(id);
+
+        return id;
+    }
+
+    public String startServer(String type) {
+        String id = type+IdGenerator.getId();
+
+        DockerService service = new DockerService(id, "evo-"+type, "evo-net");
+
+        this.dockerSwarm.runService(service);
+
+        this.gameServer.add(id);
+
+        return id;
+    }
+
+    public void stopProxy(String id) {
+
+        DockerService service = this.dockerSwarm.getServices()
+                .stream().filter(service1 -> service1.getName().equals(id))
+                .findFirst()
+                .orElse(null);
+
+        this.gameProxy.remove(id);
+        if (service != null) {
+            this.dockerSwarm.removeService(service);
         }
     }
 
-    public void buildTemplates() {
-        //this.dockerClientPool.forEachClient(this::buildTemplates);
+    public void stopServer(String id) {
+
+        DockerService service = this.dockerSwarm
+                .getServices()
+                .stream().filter(service1 -> service1.getName().equals(id))
+                .findFirst()
+                .orElse(null);
+        this.gameServer.remove(id);
+        if (service != null) {
+            this.dockerSwarm.removeService(service);
+        }
     }
 
-    public Set<ServerTemplate> getTemplateServers() {
-        return templateServers;
+
+    public void initGames() {
+        this.startProxy();
+
+        String id = this.startServer("hub");
+        ProxyHookServerPacket packet = new ProxyHookServerPacket(id, 25565);
+        this.spectrolus.getScheduler()
+                .schedule(()->
+                        this.spectrolus.getSpectrolusConnector().getConnectionManager().sendPacket("evo-proxy", packet),
+                        5,
+                        TimeUnit.SECONDS
+                );
+    }
+
+
+    public Set<String> getGameProxy() {
+        return gameProxy;
+    }
+
+    public Set<String> getGameServer() {
+        return gameServer;
     }
 }

@@ -4,10 +4,12 @@ public class RedisConfig {
 
     private String hostname;
     private int port;
+    private String password;
 
     public RedisConfig(String hostname, int port) {
         this.hostname = hostname;
         this.port = port;
+        this.password = "";
     }
 
     public String getHostname() {
@@ -16,5 +18,9 @@ public class RedisConfig {
 
     public int getPort() {
         return port;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }

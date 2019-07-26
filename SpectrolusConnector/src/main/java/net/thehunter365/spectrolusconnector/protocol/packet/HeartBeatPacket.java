@@ -3,16 +3,10 @@ package net.thehunter365.spectrolusconnector.protocol.packet;
 public class HeartBeatPacket extends AbstractPacket {
 
 
-    private String type;
     private String id;
 
-    public HeartBeatPacket(String type, String id) {
-        this.type = type;
+    public HeartBeatPacket(String id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getId() {
