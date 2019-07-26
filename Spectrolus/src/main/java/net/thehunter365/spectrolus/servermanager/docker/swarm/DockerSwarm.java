@@ -34,6 +34,10 @@ public class DockerSwarm {
         return this.client.inspectSwarmCmd().exec();
     }
 
+    public DockerClient getClient() {
+        return client;
+    }
+
     public List<Service> listServices() {
         return this.client.listServicesCmd().exec();
     }

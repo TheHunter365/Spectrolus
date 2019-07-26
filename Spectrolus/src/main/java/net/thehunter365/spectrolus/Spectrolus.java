@@ -9,12 +9,14 @@ import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
 import net.thehunter365.spectrolus.servermanager.GameServerManager;
 import net.thehunter365.spectrolus.servermanager.commands.DockerCommand;
+import net.thehunter365.spectrolus.servermanager.docker.DockerLogManager;
 import net.thehunter365.spectrolus.servermanager.docker.swarm.DockerSwarm;
 import net.thehunter365.spectrolusconnector.SpectrolusConnector;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Spectrolus {
 
@@ -37,6 +39,8 @@ public class Spectrolus {
 
     private GameServerManager gameServerManager;
 
+    private DockerLogManager logManager;
+
     public Spectrolus() {
         LOGGER = new Logger();
 
@@ -58,8 +62,12 @@ public class Spectrolus {
 
         this.executorService.submit(this.asyncCommandExecutor);
 
+        this.logManager = new DockerLogManager(this.dockerSwarm, this.spectrolusConnector);
+        this.scheduler.scheduleAtFixedRate(this.logManager, 20, 1, TimeUnit.SECONDS);
+
         this.gameServerManager = new GameServerManager(this);
         this.gameServerManager.initGames();
+
     }
 
 

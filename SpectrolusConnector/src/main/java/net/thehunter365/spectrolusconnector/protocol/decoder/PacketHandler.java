@@ -18,10 +18,8 @@ public class PacketHandler extends JedisPubSub {
 
     @Override
     public void onMessage(String channel, String message) {
-
         AbstractPacket packet = this.packetDecoder.decodePacket(message);
         PacketReceiveEvent event = new PacketReceiveEvent(channel, packet);
-        this.eventManager.callEvent(event);
-
+        this.eventManager.callPacketEvent(channel, event);
     }
 }
