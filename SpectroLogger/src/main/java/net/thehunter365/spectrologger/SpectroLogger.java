@@ -1,10 +1,10 @@
-package fr.evogames.spectrologger;
+package net.thehunter365.spectrologger;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import fr.evogames.spectrologger.log.LogsCleanupTask;
-import fr.evogames.spectrologger.log.LogsCollector;
-import fr.evogames.spectrologger.log.LogsManager;
+import net.thehunter365.spectrologger.log.LogsCleanupTask;
+import net.thehunter365.spectrologger.log.LogsCollector;
+import net.thehunter365.spectrologger.log.LogsManager;
 import net.thehunter365.spectrolusconnector.SpectrolusConnector;
 
 import java.util.concurrent.Executors;

@@ -1,4 +1,4 @@
-package fr.evogames.spectrologger;
+package net.thehunter365.spectrologger;
 
 public class Main {
 

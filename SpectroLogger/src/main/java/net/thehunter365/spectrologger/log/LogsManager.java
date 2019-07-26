@@ -1,4 +1,4 @@
-package fr.evogames.spectrologger.log;
+package net.thehunter365.spectrologger.log;
 
 import java.io.File;
 import java.io.FileWriter;

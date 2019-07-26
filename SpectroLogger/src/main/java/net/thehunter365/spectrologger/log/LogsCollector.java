@@ -1,4 +1,4 @@
-package fr.evogames.spectrologger.log;
+package net.thehunter365.spectrologger.log;
 
 import net.thehunter365.spectrolusconnector.protocol.event.EventHandler;
 import net.thehunter365.spectrolusconnector.protocol.event.PacketListener;
