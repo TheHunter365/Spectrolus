@@ -1,12 +1,12 @@
 package net.thehunter365.spectrohub.protocol;
 
 
-        import net.thehunter365.spectrohub.SpectroHub;
-        import net.thehunter365.spectrolusconnector.protocol.event.EventHandler;
-        import net.thehunter365.spectrolusconnector.protocol.event.Listener;
-        import net.thehunter365.spectrolusconnector.protocol.packet.PacketReceiveEvent;
+import net.thehunter365.spectrohub.SpectroHub;
+import net.thehunter365.spectrolusconnector.protocol.event.EventHandler;
+import net.thehunter365.spectrolusconnector.protocol.event.PacketListener;
+import net.thehunter365.spectrolusconnector.protocol.packet.PacketReceiveEvent;
 
-public class SpectroListener implements Listener {
+public class SpectroListener extends PacketListener {
 
     private SpectroHub spectroHub;
 
@@ -22,4 +22,12 @@ public class SpectroListener implements Listener {
 
     }
 
+    @Override
+    public String getChannel() {
+        return "hub"+"-"+this.id;
+    }
+
+    @Override
+    public void setChannel(String channel) {
+    }
 }

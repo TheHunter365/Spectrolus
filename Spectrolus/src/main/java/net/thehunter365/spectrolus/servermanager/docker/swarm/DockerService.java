@@ -1,14 +1,8 @@
 package net.thehunter365.spectrolus.servermanager.docker.swarm;
 
-import com.github.dockerjava.api.model.ContainerSpec;
-import com.github.dockerjava.api.model.NetworkAttachmentConfig;
-import com.github.dockerjava.api.model.ServiceSpec;
-import com.github.dockerjava.api.model.TaskSpec;
+import com.github.dockerjava.api.model.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DockerService {
 
@@ -21,6 +15,9 @@ public class DockerService {
 
     private Map<String, String> mount;
     private Map<Integer, Integer> portMap;
+
+    private int publishedPort;
+    private int targetPort;
 
     public DockerService(String name, String imageId, String network) {
         this.name = name;
@@ -67,6 +64,22 @@ public class DockerService {
         return portMap;
     }
 
+    public void setHostname(String hostname) {
+        this.hostname = hostname;
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public void setPublishedPort(int publishedPort) {
+        this.publishedPort = publishedPort;
+    }
+
+    public void setTargetPort(int targetPort) {
+        this.targetPort = targetPort;
+    }
+
     public ServiceSpec toSwarmService() {
 
         ContainerSpec containerSpec = new ContainerSpec()
@@ -77,12 +90,23 @@ public class DockerService {
                 new NetworkAttachmentConfig()
                 .withTarget(this.network)
         );
+
+        EndpointSpec endpointSpec = new EndpointSpec()
+                .withMode(EndpointResolutionMode.VIP)
+                .withPorts(Arrays.asList(
+                        new PortConfig()
+                        .withProtocol(PortConfigProtocol.TCP)
+                        .withPublishedPort(this.publishedPort)
+                        .withTargetPort(this.targetPort)
+                ));
+
         TaskSpec taskSpec = new TaskSpec()
                 .withContainerSpec(containerSpec)
                 .withNetworks(networks);
         ServiceSpec serviceSpec = new ServiceSpec();
         serviceSpec.withName(this.name)
-                .withTaskTemplate(taskSpec);
+                .withTaskTemplate(taskSpec)
+                .withEndpointSpec(endpointSpec);
 
         return serviceSpec;
     }

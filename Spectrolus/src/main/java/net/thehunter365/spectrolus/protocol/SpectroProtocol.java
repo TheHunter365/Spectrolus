@@ -46,4 +46,5 @@ public class SpectroProtocol implements Listener {
         this.spectrolus.getSpectrolusConnector()
                 .getConnectionManager().sendPacket(channel, serviceDiscoveryPacket);
     }
+
 }

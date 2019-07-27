@@ -1,11 +1,14 @@
 package net.thehunter365.spectrolusconnector.protocol;
 
 import net.thehunter365.spectrolusconnector.protocol.packet.AbstractPacket;
-import net.thehunter365.spectrolusconnector.protocol.packet.HeartBeatPacket;
+import net.thehunter365.spectrolusconnector.protocol.packet.common.HeartBeatPacket;
+import net.thehunter365.spectrolusconnector.protocol.packet.common.ServerEvacuatePacket;
+import net.thehunter365.spectrolusconnector.protocol.packet.player.MapOrderPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyAlertMessagePacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyHookServerPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyRemoveServerPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.proxy.ProxyRoutePlayerPacket;
+import net.thehunter365.spectrolusconnector.protocol.packet.server.ServerKillPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.server.ServerRequestPacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.server.ServerStatePacket;
 import net.thehunter365.spectrolusconnector.protocol.packet.spectrologger.AskForServiceDiscoveryPacket;
@@ -14,19 +17,28 @@ import net.thehunter365.spectrolusconnector.protocol.packet.spectrologger.Servic
 
 public enum Protocol {
 
+    //All pripose
     HEART_BEAT_PACKET(1, HeartBeatPacket.class),
 
+    //Proxying
     PROXY_ALERT_PACKET(2,ProxyAlertMessagePacket.class),
     PROXY_HOOK_SERVER_PACKET(3, ProxyHookServerPacket.class),
     PROXY_REMOVE_SERVER_PACKET(4, ProxyRemoveServerPacket.class),
     PROXY_ROUTE_PLAYER_PACKET(5, ProxyRoutePlayerPacket.class),
 
-    SERVER_REQUEST_PACKET(10, ServerRequestPacket.class),
-    SERVER_STATE_PACKET(11, ServerStatePacket.class),
+    //Server
+    SERVER_REQUEST_PACKET(50, ServerRequestPacket.class),
+    SERVER_STATE_PACKET(51, ServerStatePacket.class),
+    SERVER_EVACUATE_PACKET(52, ServerEvacuatePacket.class),
+    SERVER_KILL_PACKET(53, ServerKillPacket.class),
 
-    LOG_PACKET(30, LogPacket.class),
-    ASK_FOR_SERVICE_DISCOVERY_PACKET(31, AskForServiceDiscoveryPacket.class),
-    SERVICE_DISCOVERY_PACKET(32, ServiceDiscoveryPacket.class),
+    //Player packets (for housing and skyblock)
+    MAP_ORDER_PACKET(80, MapOrderPacket.class),
+
+    //SpectroLogger
+    LOG_PACKET(100, LogPacket.class),
+    ASK_FOR_SERVICE_DISCOVERY_PACKET(101, AskForServiceDiscoveryPacket.class),
+    SERVICE_DISCOVERY_PACKET(102, ServiceDiscoveryPacket.class),
 
     ;
     public static final String SPLIT_CHAR = "&";

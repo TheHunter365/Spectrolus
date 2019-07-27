@@ -18,6 +18,9 @@ public class SpectroProxy extends Plugin {
                 .serializeNulls().create();
 
         this.connector = new SpectrolusConnector(this.gson);
+
+        this.connector.getConnectionManager().addChannel(CHANNEL, "");
+
         this.connector.startPacketHandler();
         this.connector.getEventManager()
                 .registerPacketListener(new SpectrolusListener());

@@ -5,9 +5,10 @@ import net.thehunter365.spectrolusconnector.protocol.packet.AbstractPacket;
 public class ServerStatePacket extends AbstractPacket {
 
     public enum State {
-        WAITING,
-        RUNNING,
-        END;
+        WORKING,
+        FULL,
+        HAS_PROBLEM,
+
     }
 
     private String id;
