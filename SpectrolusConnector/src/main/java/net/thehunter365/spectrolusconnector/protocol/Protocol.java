@@ -17,7 +17,7 @@ import net.thehunter365.spectrolusconnector.protocol.packet.spectrologger.Servic
 
 public enum Protocol {
 
-    //All pripose
+    //All prupose
     HEART_BEAT_PACKET(1, HeartBeatPacket.class),
 
     //Proxying

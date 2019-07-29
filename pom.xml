@@ -15,6 +15,8 @@
         <module>SpectroProxy</module>
         <module>SpectroLogger</module>
         <module>SpectroHub</module>
+        <module>SpectroWorld</module>
+        <module>SpectroWorldApi</module>
     </modules>
 
     <build>
