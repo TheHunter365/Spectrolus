@@ -1,0 +1,9 @@
+FROM maven:3.5.2-jdk-8 AS builder
+WORKDIR /usr/app/
+COPY . .
+RUN mvn package --projects SpectroLogger --also-make
+
+FROM openjdk:8-jre-alpine
+WORKDIR /usr/app/
+COPY --from=builder /usr/app/SpectroLogger/target/SpectroLogger-jar-with-dependencies.jar /usr/app/SpectroLogger.jar
+ENTRYPOINT ["java", "-Xmx512M", "-XX:+UseG1GC", "-XX:+DisableExplicitGC", "-jar", "SpectroLogger.jar"]

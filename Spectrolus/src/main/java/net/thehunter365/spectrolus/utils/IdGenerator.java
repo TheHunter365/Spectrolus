@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class IdGenerator {
 
 
-    private static final char[] RUNES = "abcdefghijiklmnopqrstuvwxyz".toCharArray();
+    private static final char[] RUNES = "abcdefghijiklmnopqrstuvwxyz123456789".toCharArray();
 
     public static String randomGeneration(int size) {
         StringBuilder sb = new StringBuilder();
@@ -20,6 +20,6 @@ public class IdGenerator {
 
 
     public static String getId() {
-        return randomGeneration(4);
+        return randomGeneration(3);
     }
 }

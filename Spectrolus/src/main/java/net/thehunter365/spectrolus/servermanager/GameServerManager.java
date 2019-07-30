@@ -17,8 +17,12 @@ public class GameServerManager {
     private Set<String> gameServer;
     private Set<String> gameProxy;
 
+    private int ports;
+
     public GameServerManager(Spectrolus spectrolus) {
         this.dockerSwarm = spectrolus.getDockerSwarm();
+
+        this.ports = 45565;
     }
 
     public DockerSwarm getDockerSwarm() {
@@ -31,12 +35,14 @@ public class GameServerManager {
         DockerService service = new DockerService(
                 id, "evo-proxy", "evo-net"
         );
-        service.addPort(45565, 25565);
+        service.setTargetPort(25577);
+        service.setPublishedPort(this.ports);
+        this.ports++;
+
+        service.setHostname(id);
 
         this.dockerSwarm.runService(service);
-
         this.gameProxy.add(id);
-
         return id;
     }
 
@@ -44,10 +50,16 @@ public class GameServerManager {
         String id = type+IdGenerator.getId();
 
         DockerService service = new DockerService(id, "evo-"+type, "evo-net");
+        service.setHostname(id);
 
         this.dockerSwarm.runService(service);
 
         this.gameServer.add(id);
+
+        ProxyHookServerPacket packet = new ProxyHookServerPacket(id, 25565);
+        this.spectrolus.getSpectrolusConnector()
+                .getConnectionManager()
+                .sendPacket("SpectroProxy", packet);
 
         return id;
     }

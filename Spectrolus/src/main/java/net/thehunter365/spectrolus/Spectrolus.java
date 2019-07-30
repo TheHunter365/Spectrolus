@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
 import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
+import net.thehunter365.spectrolus.protocol.SpectroProtocol;
 import net.thehunter365.spectrolus.servermanager.GameServerManager;
 import net.thehunter365.spectrolus.servermanager.commands.DockerCommand;
 import net.thehunter365.spectrolus.servermanager.docker.DockerLogManager;
@@ -44,7 +45,7 @@ public class Spectrolus {
     public Spectrolus() {
         LOGGER = new Logger();
 
-        this.localClient = DockerClientBuilder.getInstance("unix:///var/run/docker.sock").build();
+        this.localClient = DockerClientBuilder.getInstance("tcp://localhost:2375").build();
         this.dockerSwarm = new DockerSwarm(this.localClient);
 
         this.executorService = Executors.newFixedThreadPool(8);
@@ -67,6 +68,9 @@ public class Spectrolus {
 
         this.gameServerManager = new GameServerManager(this);
         this.gameServerManager.initGames();
+
+        this.getSpectrolusConnector().getEventManager()
+                .registerListener(new SpectroProtocol(this));
 
     }
 

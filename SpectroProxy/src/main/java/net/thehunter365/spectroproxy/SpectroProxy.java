@@ -8,6 +8,8 @@ import net.thehunter365.spectrolusconnector.SpectrolusConnector;
 
 public class SpectroProxy extends Plugin {
 
+    public static final String CHANNEL = "SpectroProxy";
+
     private Gson gson;
     private SpectrolusConnector connector;
 
@@ -16,9 +18,12 @@ public class SpectroProxy extends Plugin {
                 .serializeNulls().create();
 
         this.connector = new SpectrolusConnector(this.gson);
+
+        this.connector.getConnectionManager().addChannel(CHANNEL, "");
+
         this.connector.startPacketHandler();
         this.connector.getEventManager()
-                .registerListener(new SpectrolusListener());
+                .registerPacketListener(new SpectrolusListener());
     }
 
     public void onDisable() {

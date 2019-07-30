@@ -2,7 +2,7 @@ package net.thehunter365.spectrohub;
 
 import com.google.gson.Gson;
 import net.thehunter365.spectrolusconnector.SpectrolusConnector;
-import net.thehunter365.spectrolusconnector.protocol.packet.HeartBeatPacket;
+import net.thehunter365.spectrolusconnector.protocol.packet.common.HeartBeatPacket;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.net.InetAddress;

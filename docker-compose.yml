@@ -1,7 +1,26 @@
-version: 3.7
+version: "3.7"
+
+networks:
+  evonet:
+
 services:
-  spectrolus:
-    build: ./
-    links:
-      - redis
+
   redis:
+    image: redis:5.0.5-alpine
+    networks:
+      - evonet
+
+  spectrolus:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - evonet
+
+  spectrologger:
+    image: spectrologger
+    build:
+      context: .
+      dockerfile: DockerfileSpectroLogger
+    networks:
+      - evonet
