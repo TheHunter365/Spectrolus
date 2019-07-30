@@ -1,9 +1,10 @@
 package net.thehunter365.spectroworld.storage;
 
-import fr.evogames.evoworldapi.shem.AbstractSchematic;
-import fr.evogames.evoworldapi.shem.loc.AbstractLocation;
 
-public class SchematicManager implements fr.evogames.evoworldapi.shem.SchematicManager {
+import net.thehunter365.spectroworldapi.shem.AbstractSchematic;
+import net.thehunter365.spectroworldapi.shem.loc.AbstractLocation;
+
+public class SchematicManager implements net.thehunter365.spectroworldapi.shem.SchematicManager {
 
 
     @Override

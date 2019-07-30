@@ -13,15 +13,15 @@ public class RedisConnection {
     private JedisPool jedisPool;
     private Jedis jedis;
 
-    public RedisConnection(String host, int port, String user, String pass) {
+    public RedisConnection(String host, int port, String pass) {
         JedisPoolConfig config = new JedisPoolConfig();
-        this.jedisPool = new JedisPool(config);
+        this.jedisPool = new JedisPool(config, host, port, 300, pass);
         this.jedis = this.getJedis();
     }
 
     public RedisConnection() {
         JedisPoolConfig config = new JedisPoolConfig();
-        this.jedisPool = new JedisPool(config);
+        this.jedisPool = new JedisPool(config, "redis", 6379);
         this.jedis = this.getJedis();
     }
 

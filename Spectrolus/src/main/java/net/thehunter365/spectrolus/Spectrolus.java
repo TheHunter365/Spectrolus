@@ -45,7 +45,7 @@ public class Spectrolus {
     public Spectrolus() {
         LOGGER = new Logger();
 
-        this.localClient = DockerClientBuilder.getInstance("unix:///var/run/docker.sock").build();
+        this.localClient = DockerClientBuilder.getInstance("tcp://localhost:2375").build();
         this.dockerSwarm = new DockerSwarm(this.localClient);
 
         this.executorService = Executors.newFixedThreadPool(8);

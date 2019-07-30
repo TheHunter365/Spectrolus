@@ -1,24 +1,26 @@
-version: 3.7
+version: "3.7"
 
 networks:
   evonet:
-    driver: overlay
 
 services:
 
-  spectrolus:
-    build: spectrolus
+  redis:
+    image: redis:5.0.5-alpine
     networks:
-      - spectronet
+      - evonet
+
+  spectrolus:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - evonet
 
   spectrologger:
     image: spectrologger
     build:
       context: .
-    networks:
-      - evonet
-
-  redis:
-    image: redis
+      dockerfile: DockerfileSpectroLogger
     networks:
       - evonet

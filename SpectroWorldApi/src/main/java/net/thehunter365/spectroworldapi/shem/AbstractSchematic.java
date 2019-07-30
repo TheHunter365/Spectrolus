@@ -1,10 +1,8 @@
 package net.thehunter365.spectroworldapi.shem;
 
-import fr.evogames.evoworldapi.zstd.ZstdSerializable;
-
 import java.io.Serializable;
 
-public abstract class AbstractSchematic implements Serializable, ZstdSerializable {
+public abstract class AbstractSchematic implements Serializable {
 
 
     public abstract int getSizeX();

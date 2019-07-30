@@ -1,6 +1,6 @@
 package net.thehunter365.spectroworld.storage;
 
-import fr.evogames.evoworldapi.shem.AbstractSchematic;
+import net.thehunter365.spectroworldapi.shem.AbstractSchematic;
 
 public class Schematic extends AbstractSchematic {
 

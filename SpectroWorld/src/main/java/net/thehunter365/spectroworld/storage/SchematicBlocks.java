@@ -1,7 +1,8 @@
 package net.thehunter365.spectroworld.storage;
 
-import fr.evogames.evoworldapi.shem.AbstractBlock;
-import fr.evogames.evoworldapi.shem.AbstractBlocks;
+
+import net.thehunter365.spectroworldapi.shem.AbstractBlock;
+import net.thehunter365.spectroworldapi.shem.AbstractBlocks;
 
 public class SchematicBlocks extends AbstractBlocks {
 

@@ -39,6 +39,7 @@
             </plugin>
 
         </plugins>
+        <finalName>SpectroLogger</finalName>
     </build>
 
     <dependencies>

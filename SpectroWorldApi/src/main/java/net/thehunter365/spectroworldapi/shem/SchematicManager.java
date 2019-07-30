@@ -1,6 +1,7 @@
 package net.thehunter365.spectroworldapi.shem;
 
-import fr.evogames.evoworldapi.shem.loc.AbstractLocation;
+
+import net.thehunter365.spectroworldapi.shem.loc.AbstractLocation;
 
 public interface SchematicManager {
 
