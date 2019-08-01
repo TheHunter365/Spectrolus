@@ -1,0 +1,4 @@
+name: SpectroHub
+version: ${Project.Version}
+author: TheHunter365
+main: net.thehunter365.spectrohub.SpectroHub

@@ -14,12 +14,10 @@ public class ConfigManager {
     public ConfigManager(Gson gson, String path) {
         this.gson = gson;
         this.confFile = new File("./"+path);
-
-
     }
 
     private Config loadConf(File file) {
-        Config config = null;
+        Config config;
 
         String json = FileUtils.loadFile(file);
         if (!json.equals("")) {

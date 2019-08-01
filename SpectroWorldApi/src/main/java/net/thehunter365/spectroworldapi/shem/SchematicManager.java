@@ -1,12 +1,10 @@
 package net.thehunter365.spectroworldapi.shem;
 
 
-import net.thehunter365.spectroworldapi.shem.loc.AbstractLocation;
-
 public interface SchematicManager {
 
-    AbstractSchematic getSchematic(AbstractLocation firstPoint, AbstractLocation secondPoint);
+    void saveSchematic(String name, AbstractSchematic schematic);
 
-    void loadSchematic(AbstractLocation location, AbstractSchematic schematic);
+    AbstractSchematic loadSchematic(String name);
 
 }

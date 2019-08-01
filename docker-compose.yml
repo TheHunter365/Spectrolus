@@ -1,21 +1,23 @@
 version: "3.7"
 
 networks:
-  evonet:
+  evo-net:
 
 services:
 
   redis:
     image: redis:5.0.5-alpine
     networks:
-      - evonet
+      - evo-net
 
   spectrolus:
     build:
       context: .
       dockerfile: Dockerfile
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - evonet
+      - evo-net
 
   spectrologger:
     image: spectrologger
@@ -23,4 +25,4 @@ services:
       context: .
       dockerfile: DockerfileSpectroLogger
     networks:
-      - evonet
+      - evo-net

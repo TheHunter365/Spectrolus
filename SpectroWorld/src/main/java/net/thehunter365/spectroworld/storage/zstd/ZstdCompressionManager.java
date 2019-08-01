@@ -1,11 +1,12 @@
 package net.thehunter365.spectroworld.storage.zstd;
 
 import com.github.luben.zstd.Zstd;
+import com.github.luben.zstd.ZstdDirectBufferDecompressingStream;
 import net.thehunter365.spectroworld.storage.Schematic;
+import net.thehunter365.spectroworld.utils.ByteBufferInputStream;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+import java.nio.ByteBuffer;
 
 public class ZstdCompressionManager {
 
@@ -28,9 +29,20 @@ public class ZstdCompressionManager {
         return null;
     }
 
-    public Schematic decompress(byte[] bytes, int size) {
+    public Schematic decompress(byte[] bytes) {
+        ByteBuffer buffer = ByteBuffer.allocate(bytes.length * 5);
+        ZstdDirectBufferDecompressingStream stream = new ZstdDirectBufferDecompressingStream(
+                ByteBuffer.wrap(bytes)
+        );
+        try {
+            stream.read(buffer);
+            stream.close();
+            ObjectInputStream ois = new ObjectInputStream(new ByteBufferInputStream(buffer));
+            return (Schematic) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        byte[] decompressed = Zstd.decompress(bytes, size);
         return null;
     }
 
