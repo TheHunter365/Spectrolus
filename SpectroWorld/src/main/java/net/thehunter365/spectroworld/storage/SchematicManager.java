@@ -1,19 +1,28 @@
 package net.thehunter365.spectroworld.storage;
 
 
+import net.thehunter365.spectroworld.storage.mongo.MongoFs;
 import net.thehunter365.spectroworldapi.shem.AbstractSchematic;
-import net.thehunter365.spectroworldapi.shem.loc.AbstractLocation;
 
 public class SchematicManager implements net.thehunter365.spectroworldapi.shem.SchematicManager {
 
+    private MongoFs mongoFs;
+    private SchematicLoader schematicLoader;
+
+    public SchematicManager(MongoFs mongoFs, SchematicLoader schematicLoader) {
+        this.mongoFs = mongoFs;
+        this.schematicLoader = schematicLoader;
+    }
 
     @Override
-    public AbstractSchematic getSchematic(AbstractLocation firstPoint, AbstractLocation secondPoint) {
+    public void saveSchematic(String name, AbstractSchematic schematic) {
+
+    }
+
+    @Override
+    public AbstractSchematic loadSchematic(String name) {
         return null;
     }
 
-    @Override
-    public void loadSchematic(AbstractLocation location, AbstractSchematic schematic) {
 
-    }
 }

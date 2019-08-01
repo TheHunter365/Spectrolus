@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class ConnectionManager {
 
-    private final String defaultChannel = "Spectrolus";
+    private String defaultChannel = "Spectrolus";
 
     private Gson gson;
     private Jedis jedis;

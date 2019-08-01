@@ -92,16 +92,15 @@ public class GameServerManager {
 
 
     public void initGames() {
-        this.startProxy();
 
-        String id = this.startServer("hub");
-        ProxyHookServerPacket packet = new ProxyHookServerPacket(id, 25565);
-        this.spectrolus.getScheduler()
-                .schedule(()->
-                        this.spectrolus.getSpectrolusConnector().getConnectionManager().sendPacket("evo-proxy", packet),
-                        5,
-                        TimeUnit.SECONDS
-                );
+        int hubCount = 5;
+
+        for (int i = 0; i <= hubCount; i++) {
+            String id = this.startServer("hub");
+            ProxyHookServerPacket packet = new ProxyHookServerPacket(id, 25565);
+            this.spectrolus.getSpectrolusConnector().getConnectionManager().sendPacket("evo-proxy", packet);
+        }
+
     }
 
 
