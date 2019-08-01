@@ -30,7 +30,7 @@ public class ZstdCompressionManager {
     }
 
     public Schematic decompress(byte[] bytes) {
-        ByteBuffer buffer = ByteBuffer.allocate(512000);
+        ByteBuffer buffer = ByteBuffer.allocate(bytes.length * 5);
         ZstdDirectBufferDecompressingStream stream = new ZstdDirectBufferDecompressingStream(
                 ByteBuffer.wrap(bytes)
         );
