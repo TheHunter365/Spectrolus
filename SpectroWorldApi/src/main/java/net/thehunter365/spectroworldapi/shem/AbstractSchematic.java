@@ -9,5 +9,9 @@ public abstract class AbstractSchematic implements Serializable {
     public abstract int getSizeY();
     public abstract int getSizeZ();
 
+    public abstract void setSizeX(int sizeX);
+    public abstract void setSizeY(int sizeY);
+    public abstract void setSizeZ(int sizeZ);
+
     public abstract AbstractBlocks getBlocks();
 }

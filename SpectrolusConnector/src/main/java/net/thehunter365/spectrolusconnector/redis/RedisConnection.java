@@ -25,6 +25,11 @@ public class RedisConnection {
         this.jedis = this.getJedis();
     }
 
+    public RedisConnection(JedisPool jedisPool) {
+        this.jedisPool = jedisPool;
+        this.jedis = this.getJedis();
+    }
+
 
     public void set(String key, String value) {
         this.jedis.set(key, value);

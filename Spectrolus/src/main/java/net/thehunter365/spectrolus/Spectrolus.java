@@ -4,6 +4,8 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.core.DockerClientBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.thehunter365.spectrolus.config.Config;
+import net.thehunter365.spectrolus.config.ConfigManager;
 import net.thehunter365.spectrolus.console.AsyncCommandExecutor;
 import net.thehunter365.spectrolus.console.CommandManager;
 import net.thehunter365.spectrolus.log.Logger;
@@ -29,6 +31,8 @@ public class Spectrolus {
 
     private Gson gson;
 
+    private Config config;
+
     private SpectrolusConnector spectrolusConnector;
 
     private CommandManager commandManager;
@@ -45,18 +49,24 @@ public class Spectrolus {
     public Spectrolus() {
         LOGGER = new Logger();
 
+        this.gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .serializeNulls()
+                .create();
+
+        this.config = new ConfigManager(this.gson, "./").loadConf();
+
         this.localClient = DockerClientBuilder.getInstance("unix:///var/run/docker.sock").build();
         this.dockerSwarm = new DockerSwarm(this.localClient);
 
         this.executorService = Executors.newFixedThreadPool(8);
         this.scheduler = Executors.newScheduledThreadPool(2);
 
-        this.gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .serializeNulls()
-                .create();
 
-        this.spectrolusConnector = new SpectrolusConnector(this.gson);
+        this.spectrolusConnector = new SpectrolusConnector(this.gson,
+                this.config.getRedisConfig().getHostname(),
+                this.config.getRedisConfig().getPort()
+                );
 
         this.commandManager = new CommandManager();
         this.asyncCommandExecutor = new AsyncCommandExecutor(this.commandManager);

@@ -22,7 +22,7 @@ public class SpectroHub extends JavaPlugin {
             e.printStackTrace();
         }
 
-        this.spectrolusConnector = new SpectrolusConnector(this.gson);
+        this.spectrolusConnector = new SpectrolusConnector(this.gson, "redis", 6379);
 
 
         this.spectrolusConnector.getConnectionManager()

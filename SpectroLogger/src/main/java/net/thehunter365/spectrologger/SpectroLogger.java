@@ -31,7 +31,7 @@ public class SpectroLogger {
                 .serializeNulls()
                 .create();
 
-        this.connector = new SpectrolusConnector(this.gson);
+        this.connector = new SpectrolusConnector(this.gson, "redis", 6379);
 
         this.logsManager = new LogsManager();
         this.logsCollector = new LogsCollector(this.logsManager);

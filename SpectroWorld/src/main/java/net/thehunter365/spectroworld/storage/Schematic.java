@@ -31,6 +31,21 @@ public class Schematic extends AbstractSchematic {
     }
 
     @Override
+    public void setSizeX(int sizeX) {
+        this.sizeX = sizeX;
+    }
+
+    @Override
+    public void setSizeY(int sizeY) {
+        this.sizeY = sizeY;
+    }
+
+    @Override
+    public void setSizeZ(int sizeZ) {
+        this.sizeZ = sizeZ;
+    }
+
+    @Override
     public SchematicBlocks getBlocks() {
         return blocks;
     }

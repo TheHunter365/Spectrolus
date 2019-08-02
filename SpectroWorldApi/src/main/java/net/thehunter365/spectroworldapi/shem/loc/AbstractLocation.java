@@ -5,10 +5,11 @@ import java.util.UUID;
 public interface AbstractLocation {
 
     UUID getWorldId();
-     double getX();
-     double getY();
-     double getZ();
+     int getX();
+     int getY();
+     int getZ();
 
      float getYaw();
      float getPitch();
+
 }

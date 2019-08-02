@@ -1,30 +1,24 @@
 package net.thehunter365.spectroworld.storage;
 
 
-
 import net.thehunter365.spectroworldapi.shem.AbstractBlock;
-import org.bukkit.material.MaterialData;
+import org.bukkit.block.Block;
 
 import java.io.Serializable;
 
 public class SchematicBlock extends AbstractBlock implements Serializable {
 
-    private int x, y, z;
-    private int id;
+    private String material;
     private byte data;
 
-    public SchematicBlock(int x, int y, int z, MaterialData materialData) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-
-        this.id = materialData.getItemTypeId();
-        this.data = materialData.getData();
+    public SchematicBlock(Block block) {
+        this.material = block.getType().name();
+        this.data = block.getData();
     }
 
     @Override
-    public int getId() {
-        return id;
+    public String getMaterial() {
+        return material;
     }
 
     @Override
@@ -32,15 +26,4 @@ public class SchematicBlock extends AbstractBlock implements Serializable {
         return data;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public int getZ() {
-        return z;
-    }
 }

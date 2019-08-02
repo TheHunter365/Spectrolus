@@ -5,6 +5,7 @@ import net.thehunter365.spectrolusconnector.protocol.ConnectionManager;
 import net.thehunter365.spectrolusconnector.protocol.decoder.PacketHandler;
 import net.thehunter365.spectrolusconnector.protocol.event.EventManager;
 import net.thehunter365.spectrolusconnector.redis.RedisConnection;
+import redis.clients.jedis.JedisPool;
 
 public class SpectrolusConnector {
 
@@ -15,9 +16,9 @@ public class SpectrolusConnector {
     private ConnectionManager connectionManager;
     private EventManager eventManager;
 
-    public SpectrolusConnector(Gson gson) {
+    public SpectrolusConnector(Gson gson, String redisHost, int redisPort) {
         this.gson = gson;
-        this.redisConnection = new RedisConnection();
+        this.redisConnection = new RedisConnection(new JedisPool(redisHost, redisPort));
         this.connectionManager = new ConnectionManager(this.redisConnection.getJedis(), this.gson);
         this.eventManager = new EventManager();
     }

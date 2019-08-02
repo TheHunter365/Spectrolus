@@ -17,7 +17,7 @@ public class SpectroProxy extends Plugin {
         this.gson = new GsonBuilder()
                 .serializeNulls().create();
 
-        this.connector = new SpectrolusConnector(this.gson);
+        this.connector = new SpectrolusConnector(this.gson, "redis", 6379);
 
         this.connector.getConnectionManager().addChannel(CHANNEL, "");
 

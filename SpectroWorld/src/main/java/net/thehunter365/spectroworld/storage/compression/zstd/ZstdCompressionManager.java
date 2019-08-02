@@ -1,14 +1,15 @@
-package net.thehunter365.spectroworld.storage.zstd;
+package net.thehunter365.spectroworld.storage.compression.zstd;
 
 import com.github.luben.zstd.Zstd;
 import com.github.luben.zstd.ZstdDirectBufferDecompressingStream;
 import net.thehunter365.spectroworld.storage.Schematic;
+import net.thehunter365.spectroworld.storage.compression.CompressionManager;
 import net.thehunter365.spectroworld.utils.ByteBufferInputStream;
 
 import java.io.*;
 import java.nio.ByteBuffer;
 
-public class ZstdCompressionManager {
+public class ZstdCompressionManager implements CompressionManager {
 
     public ZstdCompressionManager() {
     }
